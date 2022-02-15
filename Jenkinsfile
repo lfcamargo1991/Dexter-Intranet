@@ -19,19 +19,22 @@ stages {
     }
   }
   
+  stage('Quality Gate') {
+    steps{
+      waitForQualityGate abortPipeline: true
+          }
+  }
+
   stage('Deploy'){
     steps{
-        script{
-            def remote = [:]
-            remote.name = 'debian'
-            remote.host = '192.168.1.205'
-            remote.user = 'root'
-            remote.password = 'qwe123@'
-            remote.allowAnyHosts = true
-            
-            echo 'Iniciando Deploy'
-            sshCommand remote: remote, command: "docker container run -d --name dexter-intranet -p 80:80 lfcamargo/dexter", sudo: true
-        }
+      echo 'Atualizando imagem'
+      sh "docker build -t lfcamargo/dexter ${WORKSPACE}"
+      
+      echo 'Push imagem'
+      sh "#docker push lfcamargo/dexter"
+
+      echo 'Iniciando Deploy'
+      sh "#docker container run -d --name dexter-intranet -p 80:80 lfcamargo/dexter"
     }
   }
 }
