@@ -12,12 +12,7 @@ stages {
     environment {
       scanner = tool 'sonar-scanner'
     }
-    steps{
-      withSonarQubeEnv('sonarqube') {
-        sh "${scanner}/bin/sonar-scanner -Dsonar.projectKey=dexter -Dsonar.sources=${WORKSPACE}/intranet -Dsonar.projectVersion=${BUILD_NUMBER} -Dsonar.java.binaries=${WORKSPACE}/* -X"
-      }
-    }
-  }
+    
   
   stage('Deploy'){
     steps{
