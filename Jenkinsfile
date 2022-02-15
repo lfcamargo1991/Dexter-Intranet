@@ -19,12 +19,6 @@ stages {
     }
   }
   
-  stage('Quality Gate') {
-    steps{
-      waitForQualityGate abortPipeline: true
-          }
-  }
-
   stage('Deploy'){
     steps{
       echo 'Atualizando imagem'
