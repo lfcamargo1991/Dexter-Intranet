@@ -30,13 +30,13 @@ stages {
             remote.allowAnyHosts = true
             
             echo 'Atualizando imagem'
-            sshCommand remote: remote, command: "docker build -t lfcamargo/dexter ."
+            sshCommand remote: remote, command: "docker build -t lfcamargo/dexter .", sudo: true
             
             echo 'Push imagem'
-            sshCommand remote: remote, command: "docker push lfcamargo/dexter"
+            sshCommand remote: remote, command: "docker push lfcamargo/dexter", sudo: true
 
             echo 'Iniciando Deploy'
-            sshCommand remote: remote, command: "docker container run -d --name dexter-intranet -p 80:80 lfcamargo/dexter"
+            sshCommand remote: remote, command: "docker container run -d --name dexter-intranet -p 80:80 lfcamargo/dexter", sudo: true
         }
     }
   }
