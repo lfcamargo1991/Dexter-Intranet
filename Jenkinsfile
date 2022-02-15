@@ -28,13 +28,13 @@ stages {
   stage('Deploy'){
     steps{
       echo 'Atualizando imagem'
-      docker build -t lfcamargo/dexter .
+      sh "docker build -t lfcamargo/dexter ."
       
       echo 'Push imagem'
-      docker push lfcamargo/dexter
+      sh "docker push lfcamargo/dexter"
 
       echo 'Iniciando Deploy'
-      docker container run -d --name dexter-intranet -p 80:80 lfcamargo/dexter
+      sh "docker container run -d --name dexter-intranet -p 80:80 lfcamargo/dexter"
     }
   }
 }
