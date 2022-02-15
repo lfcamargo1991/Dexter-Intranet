@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dexter-deployment
+  labels:
+    name: dexter
+spec:
+  selector:
+    matchLabels:
+      app: dexter
+      name: dexter
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: dexter
+        name: dexter
+    spec:
+      containers:
+      - name: dexter
+        image: lfcamargo/dexter
+        ports:
+        - containerPort: 80
