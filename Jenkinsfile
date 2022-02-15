@@ -1,11 +1,5 @@
 pipeline{
 agent any
-def remote = [:]
-remote.name = 'debian'
-remote.host = '192.168.1.205'
-remote.user = 'root'
-remote.password = 'qwe123@'
-remote.allowAnyHosts = true
 
 stages {
   stage('Git'){
@@ -27,14 +21,23 @@ stages {
   
   stage('Deploy'){
     steps{
-      echo 'Atualizando imagem'
-      sshCommand remote: remote, command: "docker build -t lfcamargo/dexter ."
-      
-      echo 'Push imagem'
-      sshCommand remote: remote, command: "docker push lfcamargo/dexter"
+        script{
+            def remote = [:]
+            remote.name = 'debian'
+            remote.host = '192.168.1.205'
+            remote.user = 'root'
+            remote.password = 'qwe123@'
+            remote.allowAnyHosts = true
+            
+            echo 'Atualizando imagem'
+            sshCommand remote: remote, command: "docker build -t lfcamargo/dexter ."
+            
+            echo 'Push imagem'
+            sshCommand remote: remote, command: "docker push lfcamargo/dexter"
 
-      echo 'Iniciando Deploy'
-      sshCommand remote: remote, command: "docker container run -d --name dexter-intranet -p 80:80 lfcamargo/dexter"
+            echo 'Iniciando Deploy'
+            sshCommand remote: remote, command: "docker container run -d --name dexter-intranet -p 80:80 lfcamargo/dexter"
+        }
     }
   }
 }
