@@ -22,7 +22,7 @@ stages {
   stage('Deploy'){
     steps{
       echo 'Atualizando imagem'
-      sh "docker build -t lfcamargo/dexter ${WORKSPACE}"
+      sh "docker build -t lfcamargo/dexter ."
       
       echo 'Push imagem'
       sh "#docker push lfcamargo/dexter"
