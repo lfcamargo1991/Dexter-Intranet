@@ -14,7 +14,7 @@ stages {
     }
     steps{
       withSonarQubeEnv('sonarqube') {
-        sh "${scanner}/bin/sonar-scanner -Dsonar.projectKey=java -Dsonar.sources=${WORKSPACE} -Dsonar.projectVersion=${BUILD_NUMBER} -Dsonar.java.binaries=${WORKSPACE}/* -X"
+        sh "${scanner}/bin/sonar-scanner -Dsonar.projectKey=dexter -Dsonar.sources=${WORKSPACE}/intranet -Dsonar.projectVersion=${BUILD_NUMBER} -Dsonar.java.binaries=${WORKSPACE}/* -X"
       }
     }
   }
@@ -29,6 +29,8 @@ stages {
     steps{
       echo 'Atualizando imagem'
       docker build -t lfcamargo/dexter .
+      
+      echo 'Push imagem'
       docker push lfcamargo/dexter
 
       echo 'Iniciando Deploy'
