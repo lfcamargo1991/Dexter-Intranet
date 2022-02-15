@@ -22,7 +22,7 @@ stages {
   stage('Deploy'){
     steps{
       echo 'Atualizando imagem'
-      sh "docker build -t lfcamargo/dexter ."
+      sh "ssh root@192.168.1.205 docker build -t lfcamargo/dexter ."
       
       echo 'Push imagem'
       sh "#docker push lfcamargo/dexter"
