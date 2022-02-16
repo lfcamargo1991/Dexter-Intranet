@@ -9,7 +9,7 @@
 			</ul>
 		</div>
 		<div class="block">
-			<h3>Feito por:</h3>
+			<h3>Feito por: LuisF. e</h3>
                        <a href="http://www.4linux.com.br" title="4Linux"><img src="images/logo4linuxsmall.png" alt="4Linux - Curso e Consultoria Linux" /></a>
 		</div>
 		
