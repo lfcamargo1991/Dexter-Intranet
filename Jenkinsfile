@@ -23,6 +23,7 @@ stages {
     steps{
       echo 'Preparando ambiente'
       sh "ssh root@192.168.1.205 mkdir /tmp/dexter-${BUILD_NUMBER}"
+      sh "ssh root@192.168.1.205 rm -f dexter"
 
       echo 'GitClone'
       sh "ssh root@192.168.1.205 git clone https://github.com/lfcamargo1991/Dexter-Intranet.git /tmp/dexter-${BUILD_NUMBER}"
