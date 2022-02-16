@@ -39,10 +39,15 @@ stages {
       sh "ssh root@192.168.1.205 docker container run -d --name dexter -p 80:80 lfcamargo/dexter:${BUILD_NUMBER}"
 
       echo 'Iniciando OWASPZAP'
-      sh "#docker pull owasp/zap2docker-stable"
-      sh "#docker run -dt --name owasp -p 8081:8081 -i owasp/zap2docker-stable /bin/bash"
-      sh "#docker exec owasp zap-baseline.py -t http://pudim.com.br/ -x report.xml -I"
-      sh "ssh root@192.168.1.205 docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t http://192.168.1.205/ -g gen.conf -r /root/repots_owasp/dexter/dexter-${BUILD_NUMBER}.html"
+      
+      echo 'BaseLine'
+      sh "ssh root@192.168.1.205 docker run -v /root/owasp:/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t http://192.168.1.205/ -g gen.conf -r /zap/wrk/dexter-${BUILD_NUMBER}.html -j"
+      
+      echo 'FullScan'
+      sh "ssh root@192.168.1.205 docker run -v /root/owasp:/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py -t http://192.168.1.205/ -g gen.conf -r /zap/wrk/dexter-${BUILD_NUMBER}.html -j" 
+
+      
+      echo 'Gerando Relatorio'
       sh "ssh root@192.168.1.205 cd /root/repots_owasp/dexter/ && python3 -m ComplexHTTPServer"
 
       echo 'Acessar: http://192.168.1.205:8000/'
@@ -50,3 +55,6 @@ stages {
   }
 }
 }
+
+
+
