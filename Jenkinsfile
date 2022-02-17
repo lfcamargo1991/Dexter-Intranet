@@ -48,7 +48,7 @@ stages {
 
       
       echo 'Gerando Relatorio'
-      sh "ssh root@192.168.1.205 cd /root/repots_owasp/dexter/ && python3 -m ComplexHTTPServer"
+      sh "#ssh root@192.168.1.205 cd /root/repots_owasp/dexter/ && python3 -m ComplexHTTPServer"
 
 
       echo 'Acessar: http://192.168.1.205:8000/'
