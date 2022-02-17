@@ -41,10 +41,10 @@ stages {
       echo 'Iniciando OWASPZAP'
       
       echo 'BaseLine'
-      sh "ssh root@192.168.1.205 docker run -v /root/owasp:/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t http://192.168.1.205/ -g gen.conf -r dexter-${BUILD_NUMBER}.html -j"
+      sh "ssh root@192.168.1.205 docker run -v /home/lfcamargo:/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t http://192.168.1.205/ -g gen.conf -r dexter-${BUILD_NUMBER}.html -j"
       
       echo 'FullScan'
-      sh "#ssh root@192.168.1.205 docker run -v /root/owasp:/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py -t http://192.168.1.205/ -g gen.conf -r dexter-${BUILD_NUMBER}.html -j" 
+      sh "#ssh root@192.168.1.205 docker run -v /home/lfcamargo:/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py -t http://192.168.1.205/ -g gen.conf -r dexter-${BUILD_NUMBER}.html -j" 
 
       
       echo 'Gerando Relatorio'
